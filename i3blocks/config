@@ -1,0 +1,44 @@
+separator=false
+separator_block_width=5
+border_top=0
+border_left=0
+border_right=0
+border_bottom=2
+
+#[output]
+#command=$HOME/scripts/monitor.sh
+#interval=60
+#signal=4
+
+[updates]
+command=$HOME/scripts/updates.sh
+interval=60
+signal=3
+urgent=true
+
+[brightness]
+label=  
+command=echo $(printf "%.0f " $(xbacklight -get))
+interval=10
+signal=2
+
+[temperature]
+label=  
+command=echo "$($HOME/scripts/temperature.sh 'Core 0') $($HOME/scripts/temperature.sh 'Core 1') "
+interval=5
+
+[wireless]
+label=  
+command=[[ -z "$(iwgetid -r)" ]] || echo "$(iwgetid -r) "
+interval=2
+
+[battery]
+command=$HOME/scripts/battery.sh
+interval=persist
+
+[time]
+label=  
+command=echo "`date +'%a %d %b'` <b>`date +'%T'`</b> "; [[ -z "${BLOCK_BUTTON}" ]] || gsimplecal &
+interval=1
+markup=pango
+separator_block_width=0
